@@ -2,10 +2,18 @@
 [![Build Status](https://travis-ci.org/bartromgens/geojsoncontour.svg?branch=master)](https://travis-ci.org/bartromgens/geojsoncontour) [![PyPI version](https://badge.fury.io/py/geojsoncontour.svg)](https://badge.fury.io/py/geojsoncontour) [![Coverage Status](https://coveralls.io/repos/github/bartromgens/geojsoncontour/badge.svg?branch=master)](https://coveralls.io/github/bartromgens/geojsoncontour?branch=master)  
 A Python 3 module to convert matplotlib contour plots to geojson. Supports both contour and contourf plots.
 
-Designed to show geographical [contour plots](http://matplotlib.org/examples/pylab_examples/contour_demo.html), 
+Designed to show geographical [contour plots](http://matplotlib.org/examples/pylab_examples/contour_demo.html),
 created with [matplotlib/pyplot](https://github.com/matplotlib/matplotlib), as vector layer on interactive slippy maps like [OpenLayers](https://github.com/openlayers/ol3) and [Leaflet](https://github.com/Leaflet/Leaflet).
 
 Demo project that uses geojsoncontour: [climatemaps.romgens.com](http://climatemaps.romgens.com)
+
+## Forking notes
+
+_This fork fixes issues with geojson style properties of the Leaflet/JS mapping library. The package converts matplotlib
+contour plots to geojson files, which can be used in e.g. Folium (Python wrapper for Leaflet) or within Leaflet directly.
+Here, particular emphasis is also given to a meaningful treatment of the time information of a transient/instationary/animated
+contour plot in order to make animated interactive leaflet visualizations possible._
+
 
 ![geojson contour demo usage](https://raw.githubusercontent.com/bartromgens/geojsoncontour/master/data/example_climatemaps.png)
 
