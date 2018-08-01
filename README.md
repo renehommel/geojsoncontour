@@ -23,6 +23,12 @@ Install with pip,
 $ pip install geojsoncontour
 ```
 
+### Fork Installation
+
+```
+$ pip install -e local_path_to_checkout/geojsoncontour
+```
+
 ## Usage
 
 Use `contour_to_geojson` to create a geojson with contour lines from a `matplotlib.contour` plot (not filled).
