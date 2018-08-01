@@ -68,7 +68,19 @@ def contourf_to_geojson_overlap(contourf, geojson_filepath=None, min_angle_deg=N
 def contourf_to_geojson(contourf, geojson_filepath=None, min_angle_deg=None,
                         ndigits=5, unit='', stroke_width=1, fill_opacity=.9,
                         geojson_properties=None, strdump=False, serialize=True):
-    """Transform matplotlib.contourf to geojson with MultiPolygons."""
+    """Transform matplotlib.contourf to geojson with MultiPolygons.
+
+    This fork introduces changes are introduced that allow a seamless integration of geojson files into leaflet. Most
+    important change is the indroduction of a "style" dict within the "properties" key/value pair of the resulting
+    geojson file. Other, minor changes, comprise name changes of "style" properties according to the current Leaflet
+    naming convention.
+
+    Purpose:
+        * build a proper and seamless work flow for visualising matplotlib contour (plots) in Leaflet.
+
+    Todo:
+        * discuss and feedback
+    """
     polygon_features = []
     mps = []
     contourf_idx = 0
