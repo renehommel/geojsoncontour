@@ -11,8 +11,7 @@ Demo project that uses geojsoncontour: [climatemaps.romgens.com](http://climatem
 
 _This fork fixes issues with geojson style properties of the Leaflet/JS mapping library. The package converts matplotlib
 contour plots to geojson files, which can be used in e.g. Folium (Python wrapper for Leaflet) or within Leaflet directly.
-Here, particular emphasis is also given to a meaningful treatment of the time information of a transient/instationary/animated
-contour plot in order to make animated interactive leaflet visualizations possible._
+Here, particular emphasis is also given to a meaningful treatment of the time information of a transient/instationary/animated contour plot in order to make animated interactive leaflet visualizations possible. However, this tool does not yet provide functionality to build files containing multiple time steps._
 
 
 ![geojson contour demo usage](https://raw.githubusercontent.com/bartromgens/geojsoncontour/master/data/example_climatemaps.png)
