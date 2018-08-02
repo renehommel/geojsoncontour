@@ -58,14 +58,34 @@ def keep_high_angle(vertices, min_angle_deg):
     accepted.append((v[-1][0], v[-1][1]))
     return np.array(accepted, dtype=vertices.dtype)
 
-
-def set_contourf_properties(stroke_width, fcolor, fill_opacity, contour_levels, contourf_idx, unit):
-    """Set property values for Polygon."""
+# modified:
+def set_contourf_properties(contour_levels, contourf_idx, unit):
+    """Set additional property values for Polygon."""
     return {
-        "stroke": fcolor,
-        "stroke-width": stroke_width,
-        "stroke-opacity": 1,
-        "fill": fcolor,
-        "fill-opacity": fill_opacity,
         "title": "%.2f" % contour_levels[contourf_idx] + ' ' + unit
+    }
+
+# new:
+def set_contourf_properties_style(stroke_width, fcolor, fill_opacity):
+    """Set style property values for Polygon using Leaflet naming convention.
+
+    Assignment pattern:
+        wrong name             leaflet name
+        - - -                  - - -
+	    fill                   fillColor
+	    fill-opacity           fillOpacity
+	    stroke                 color
+	    stroke-opacity         opacity
+	    stroke-width           weight
+
+    ToDo:
+        * ("stroke-opacity") should be interactive
+        * ("stroke") and ("fill") should assign individual colours
+    """
+    return {
+        "color": fcolor,
+        "weight": stroke_width,
+        "opacity": 1,
+        "fillColor": fcolor,
+        "fillOpacity": fill_opacity,
     }

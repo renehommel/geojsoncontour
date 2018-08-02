@@ -5,7 +5,7 @@ import numpy as np
 from matplotlib.colors import rgb2hex
 from geojson import Feature, LineString
 from geojson import Polygon, FeatureCollection
-from .utilities.multipoly import MP, keep_high_angle, set_contourf_properties
+from .utilities.multipoly import MP, keep_high_angle, set_contourf_properties, set_contourf_properties_style
 
 
 def contour_to_geojson(contour, geojson_filepath=None, min_angle_deg=None,
@@ -78,8 +78,18 @@ def contourf_to_geojson(contourf, geojson_filepath=None, min_angle_deg=None,
     Purpose:
         * build a proper and seamless work flow for visualising matplotlib contour (plots) in Leaflet.
 
+    Assignment pattern:
+        wrong name             leaflet name
+        - - -                  - - -
+	    fill                   fillColor
+	    fill-opacity           fillOpacity
+	    stroke                 color
+	    stroke-opacity         opacity
+	    stroke-width           weight
+
     Todo:
         * discuss and feedback
+        * introducing a better unified style properties variable naming convention would be helpful
     """
     polygon_features = []
     mps = []
@@ -105,13 +115,34 @@ def contourf_to_geojson(contourf, geojson_filepath=None, min_angle_deg=None,
     for muli in mps:
         polygon = muli.mpoly()
         fcolor = muli.color
-        properties = set_contourf_properties(stroke_width, fcolor, fill_opacity, contourf.levels, contourf_idx, unit)
+        # here changes start:
+        #properties = set_contourf_properties(stroke_width, fcolor, fill_opacity, contourf.levels, contourf_idx, unit)
+        properties = set_contourf_properties(contourf.levels, contourf_idx, unit)
+        style = {"style":set_contourf_properties_style(stroke_width, fcolor, fill_opacity)}
+        #print('geojson_properties: ',geojson_properties)
+        #print('properties: ',properties)
+        #print('style: ',style)
+
+        # merge both - that is what leaflet requests!:
+        properties.update(style)
+        #print('new properties: ',properties)
+
+        #print('stroke_width: ',stroke_width)
+        #print('fcolor: ',fcolor)
+        #print('fill_opacity: ',fill_opacity)
+        #print('contourf.levels: ',contourf.levels)
+        #print('contourf_idx: ',contourf_idx)
+        #print('unit: ',unit)
         if geojson_properties:
+            # merges new "properties" structure with "time" supplied by "geojson_properties":
             properties.update(geojson_properties)
+            #print('  resulting properties: ',properties)
         feature = Feature(geometry=polygon, properties=properties)
+        #print('     resulting feature: ',feature)
         polygon_features.append(feature)
         contourf_idx += 1
     feature_collection = FeatureCollection(polygon_features)
+    #print('  feature_collection: ',feature_collection)
     return _render_feature_collection(feature_collection, geojson_filepath, strdump, serialize)
 
 
